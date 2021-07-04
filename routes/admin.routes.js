@@ -12,4 +12,8 @@ const router = express.Router();
   router.get("/api/theme", controller.getTheme);
   router.get("/api/episode", controller.getEpisode);
 
+  router.get("/api/organization", controller.getOrganization);
+  router.get("/api/organization/:id", controller.getOrgById);
+  
+
 module.exports = router;
