@@ -188,3 +188,52 @@ exports.getTopicTitle = async (req, res, next) => {
     res.json({ message: err.message });
   }
 }
+
+
+/// ORGANIZATION POST API -> POST the Org's List to DB  ///
+
+exports.postOrganization = async (req, res, next) => {
+  const org = new Org({
+    OrganizationName: req.body.OrganizationName,
+    OrganizationCode: req.body.OrganizationCode,
+  });
+  try {
+      const checkOrgName = await Org.findOne({ OrganizationName: req.body.OrganizationName });
+      if(checkOrgName) {
+        res.json({ message: 'Please Try Different Org name, Its already Exists!'});
+      }
+      else {
+        const newOrg = await org.save();
+        res.json(newOrg);  
+      }
+    } catch(err) {
+    res.json({ message: err.message, status: "error" });
+  }
+}
+
+
+/// ORGANIZATION GET API -> Get the Org's List from DB in JSON  ///
+
+exports.getOrganization = async (req, res, next) => {
+  try {
+    const OrgList = await Org.find({}, { _id: 0 });
+    res.json({ OrgList });
+ 
+  } catch(err) {
+    res.json({ message: err.message });
+  }
+}
+
+
+/// ORGANIZATION GET BY ID API -> Get the Particular Org by ID from DB in JSON  ///
+ 
+exports.getOrgById =  (req, res, next) => {
+  Org.findOne({_id: req.params.id }, function (err, org) { 
+  if(err) { 
+    return res.json({ message: err.message }); 
+  } 
+  else {
+      return res.json({ org });
+    }
+  }); 
+}
