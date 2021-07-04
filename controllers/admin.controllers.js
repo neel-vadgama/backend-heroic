@@ -3,6 +3,7 @@ const Admin = require('../models/admin.models');
 const Theme = require('../models/admin.theme');
 const Topic = require('../models/admin.topic');
 const Episode = require('../models/admin.episode');
+const Org = require('../models/admin.organization');
 const key = require('../config/key');
 
 function tokenForUser(user) {
